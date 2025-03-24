@@ -1,6 +1,7 @@
 package com.example.composefusion.utils
 
 import android.util.Log
+import com.example.composefusion.BuildConfig
 
 object LogUtil {
 
