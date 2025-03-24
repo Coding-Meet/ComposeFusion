@@ -7,7 +7,6 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -37,15 +36,22 @@ class MainActivity : ComponentActivity() {
                 dynamicColor = isDynamicColor
             ) {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    ThemeChange(
-                        innerPadding = innerPadding,
-                        isDarkTheme = isDarkTheme,
-                        isDynamicColor = isDynamicColor, onThemeCheckedChange = {
-                            isDarkTheme = it
-                        }, onDynamicColorCheckedChange = {
-                            isDynamicColor = it
-                        }
-                    )
+                    Column(
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(innerPadding),
+                        verticalArrangement = Arrangement.spacedBy(16.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        ThemeChange(
+                            isDarkTheme = isDarkTheme,
+                            isDynamicColor = isDynamicColor, onThemeCheckedChange = {
+                                isDarkTheme = it
+                            }, onDynamicColorCheckedChange = {
+                                isDynamicColor = it
+                            }
+                        )
+                    }
                 }
             }
         }
@@ -53,30 +59,21 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     private fun ThemeChange(
-        innerPadding: PaddingValues,
         isDarkTheme: Boolean,
         isDynamicColor: Boolean,
         onThemeCheckedChange: (Boolean) -> Unit,
         onDynamicColorCheckedChange: (Boolean) -> Unit
     ) {
-        Column(
-            Modifier
-                .fillMaxWidth()
-                .padding(innerPadding),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+        Row(
+            modifier = Modifier,
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            Row(
-                modifier = Modifier,
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                Text("Theme: ${if (isDarkTheme) "Dark" else "Light"}")
-                Switch(isDarkTheme, onCheckedChange = { onThemeCheckedChange(it) })
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                    Text("Dynamic Color: ${if (isDynamicColor) "On" else "Off"}")
-                    Switch(isDynamicColor, onCheckedChange = { onDynamicColorCheckedChange(it) })
-                }
+            Text("Theme: ${if (isDarkTheme) "Dark" else "Light"}")
+            Switch(isDarkTheme, onCheckedChange = { onThemeCheckedChange(it) })
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                Text("Dynamic Color: ${if (isDynamicColor) "On" else "Off"}")
+                Switch(isDynamicColor, onCheckedChange = { onDynamicColorCheckedChange(it) })
             }
         }
     }
