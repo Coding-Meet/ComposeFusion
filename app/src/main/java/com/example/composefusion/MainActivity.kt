@@ -56,25 +56,25 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+}
 
-    @Composable
-    private fun ThemeChange(
-        isDarkTheme: Boolean,
-        isDynamicColor: Boolean,
-        onThemeCheckedChange: (Boolean) -> Unit,
-        onDynamicColorCheckedChange: (Boolean) -> Unit
+@Composable
+private fun ThemeChange(
+    isDarkTheme: Boolean,
+    isDynamicColor: Boolean,
+    onThemeCheckedChange: (Boolean) -> Unit,
+    onDynamicColorCheckedChange: (Boolean) -> Unit
+) {
+    Row(
+        modifier = Modifier,
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        Row(
-            modifier = Modifier,
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            Text("Theme: ${if (isDarkTheme) "Dark" else "Light"}")
-            Switch(isDarkTheme, onCheckedChange = { onThemeCheckedChange(it) })
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                Text("Dynamic Color: ${if (isDynamicColor) "On" else "Off"}")
-                Switch(isDynamicColor, onCheckedChange = { onDynamicColorCheckedChange(it) })
-            }
+        Text("Theme: ${if (isDarkTheme) "Dark" else "Light"}")
+        Switch(isDarkTheme, onCheckedChange = { onThemeCheckedChange(it) })
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            Text("Dynamic Color: ${if (isDynamicColor) "On" else "Off"}")
+            Switch(isDynamicColor, onCheckedChange = { onDynamicColorCheckedChange(it) })
         }
     }
 }
