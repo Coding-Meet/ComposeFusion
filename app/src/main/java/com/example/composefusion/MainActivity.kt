@@ -25,8 +25,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.composefusion.ui.common_components.LoadingDialog
 import com.example.composefusion.ui.theme.ComposeFusionTheme
+import com.example.composefusion.utils.ConnectivityViewModel
+import com.example.composefusion.utils.NetworkConnectivityObserver
 import com.example.composefusion.utils.StateController
 import com.example.composefusion.utils.UiText
 import com.example.composefusion.utils.isNetworkAvailable
@@ -63,6 +67,7 @@ class MainActivity : ComponentActivity() {
                         LoadingScreen()
                         ShowToast()
                         NetworkCheck()
+                        NetworkConnectivityScreen()
                     }
                 }
             }
@@ -146,4 +151,18 @@ private fun NetworkCheck() {
     }) {
         Text(text = "Check Network")
     }
+}
+
+@Composable
+fun NetworkConnectivityScreen() {
+    val context = LocalContext.current
+    val viewModel = viewModel<ConnectivityViewModel> {
+        ConnectivityViewModel(
+            connectivityObserver = NetworkConnectivityObserver(
+                context = context
+            )
+        )
+    }
+    val isConnected by viewModel.isConnected.collectAsStateWithLifecycle()
+    Text("Network is connected: $isConnected")
 }
