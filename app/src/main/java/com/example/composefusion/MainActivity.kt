@@ -30,6 +30,7 @@ import com.example.composefusion.ui.theme.ComposeFusionTheme
 import com.example.composefusion.utils.ObserveAsEvents
 import com.example.composefusion.utils.StateController
 import com.example.composefusion.utils.UiText
+import com.example.composefusion.utils.isNetworkAvailable
 import com.example.composefusion.utils.showToast
 import kotlinx.coroutines.launch
 
@@ -62,6 +63,7 @@ class MainActivity : ComponentActivity() {
                         )
                         LoadingScreen()
                         ShowToast()
+                        NetworkCheck()
                     }
                 }
             }
@@ -129,5 +131,20 @@ private fun ShowToast() {
         }){
             Text(text = "Show Toast String Resource")
         }
+    }
+}
+
+@Composable
+private fun NetworkCheck() {
+    val context = LocalContext.current
+
+    Button(onClick = {
+        if (context.isNetworkAvailable()) {
+            context.showToast("Network is available")
+        } else {
+            context.showToast("Network is not available")
+        }
+    }) {
+        Text(text = "Check Network")
     }
 }
