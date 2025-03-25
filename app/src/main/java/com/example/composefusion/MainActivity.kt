@@ -27,7 +27,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.example.composefusion.ui.common_components.LoadingDialog
 import com.example.composefusion.ui.theme.ComposeFusionTheme
-import com.example.composefusion.utils.ObserveAsEvents
 import com.example.composefusion.utils.StateController
 import com.example.composefusion.utils.UiText
 import com.example.composefusion.utils.isNetworkAvailable
@@ -108,7 +107,7 @@ private fun LoadingScreen() {
 @Composable
 private fun ShowToast() {
     val context = LocalContext.current
-    ObserveAsEvents(StateController.messageEventFlow) {
+    StateController.ObserveAsEvents(StateController.messageEventFlow) {
         context.showToast(it.asString(context))
     }
     val coroutineScope = rememberCoroutineScope()
