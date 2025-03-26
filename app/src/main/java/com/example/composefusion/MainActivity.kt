@@ -68,6 +68,21 @@ class MainActivity : ComponentActivity() {
                         ShowToast()
                         NetworkCheck()
                         NetworkConnectivityScreen()
+//                        SwitchPreview()
+//                        ButtonPreview()
+//                        FABPreview()
+//                        SegmentedButtonPreview()
+//                        RadioButtonPreview()
+//                        BottomAppBarPreview()
+//                        TextPreview()
+//                        BadgePreview()
+//                        DividerPreview()
+//                        ProgressIndicatorsPreview()
+//                        SliderPreview()
+//                        BottomAppBarPreview()
+//                        CheckBoxPreview()
+//                        TopAppBarPreview()
+//                        NavigationBarPreview()
                     }
                 }
             }
@@ -132,7 +147,7 @@ private fun ShowToast() {
             coroutineScope.launch {
                 StateController.sendToastMsgEvent(UiText.StringResource(resId = R.string.app_name))
             }
-        }){
+        }) {
             Text(text = "Show Toast String Resource")
         }
     }

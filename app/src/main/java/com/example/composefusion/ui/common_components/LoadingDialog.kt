@@ -19,9 +19,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.composefusion.utils.StateController
 import kotlinx.coroutines.launch
 
-/**
- * Created 08-04-2024 at 01:24 pm
- */
 
 @Composable
 fun LoadingDialog() {
