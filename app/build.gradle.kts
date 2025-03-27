@@ -1,7 +1,13 @@
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.Locale
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlinx.serialization)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -14,7 +20,17 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
+        val timeStamp = LocalDateTime.now()
+            .format(
+                DateTimeFormatter
+                    .ofPattern(
+                        "dd-MMM-yyyy hh-mm a",
+                        Locale.getDefault()
+                    )
+            )
 
+        val nameApk = "Compose Fusion App $timeStamp"
+        setProperty("archivesBaseName", nameApk)
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -49,10 +65,34 @@ dependencies {
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material3)
 
+
+    // Lifecycle utilities for Compose
     implementation(libs.androidx.lifecycle.runtime.compose)
+    // ViewModel utilities for Compose
     implementation(libs.androidx.lifecycle.viewmodel.compose)
+
+    // Kotlin Serialization
+    implementation(libs.kotlinx.serialization.json)
+
+    // Navigation
+    implementation(libs.androidx.navigation.compose)
+
+    // Material theme 3
+    implementation(libs.androidx.material3)
+    // Material theme 3 window size class
+    implementation(libs.androidx.material3.window.size.class1)
+    // Material theme 3 adaptive navigation suite
+    implementation(libs.androidx.material3.adaptive.navigation.suite)
+
+    // Koin for Android
+    implementation(libs.koin.androidx.compose)
+
+    // room
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation(libs.room.ktx)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
